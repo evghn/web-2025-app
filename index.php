@@ -1,20 +1,25 @@
 <?php
-use core\models\Db;
 
-use app\models\Article;
-// use app\models\Db;
-
+use core\models\BaseView;
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config/app.php";
-// require_once __DIR__ . "/core/models/Db.php";
 
-// $db = new Db();
-$db = Db::getInstance();
 
-$q = "SELECT * FROM user where name = :name";
-$res = $db->queryAssociative($q, ["name" => "user-name-1"]);
-// $
-var_dump($res);
+$view = new BaseView();
+// $view->layout = "main2";
+
+$userName = "user  name";
+// вариант 1
+echo $view->render("site/index", ["userName" => $userName]);
+// echo $view->render([
+//     "user" => $userName, 
+//     "a" => $a,
+// ]);
+
+// echo $$$userName;
+// вариант 2
+// echo $view->render(compact("userName", "a"));
+
 
 
