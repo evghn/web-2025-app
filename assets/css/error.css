@@ -1,0 +1,6 @@
+.alert {
+    padding: 15px;
+    font-size: 150%;
+    background-color: rgb(247, 209, 209);
+    color: darkred;
+}

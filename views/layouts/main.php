@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        меню сайта
+        <a href="/site/index">Главная</a> | <a href="/user/register">Регистрация</a> | <a href="/site/about">О нас..</a>
     </header>
     <main>
         главный шаблон
