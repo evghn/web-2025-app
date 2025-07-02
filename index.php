@@ -5,13 +5,13 @@ use core\models\BaseView;
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config/app.php";
 
-
-$view = new BaseView();
+require_once __DIR__ . "/config/test.php";
+// $view = new BaseView();
 // $view->layout = "main2";
 
-$userName = "user  name";
+// $userName = "user  name";
 // вариант 1
-echo $view->render("site/index", ["userName" => $userName]);
+// echo $view->render("site/index", ["userName" => $userName]);
 // echo $view->render([
 //     "user" => $userName, 
 //     "a" => $a,
@@ -21,5 +21,13 @@ echo $view->render("site/index", ["userName" => $userName]);
 // вариант 2
 // echo $view->render(compact("userName", "a"));
 
+try {
+    echo calc(0);
+} catch (Exception $e) {
+    echo $e->getFile() . "<br>";
+    echo $e->getMessage();
+} finally {
+    echo "<br>code the end!";
+}
 
 
