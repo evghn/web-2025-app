@@ -1,11 +1,12 @@
 <?php
 
-use core\models\BaseView;
+use app\controllers\SiteController;
+use app\controllers\UserController;
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config/app.php";
 
-require_once __DIR__ . "/config/test.php";
+// require_once __DIR__ . "/config/test.php";
 // $view = new BaseView();
 // $view->layout = "main2";
 
@@ -21,13 +22,14 @@ require_once __DIR__ . "/config/test.php";
 // вариант 2
 // echo $view->render(compact("userName", "a"));
 
-try {
-    echo calc(0);
-} catch (Exception $e) {
-    echo $e->getFile() . "<br>";
-    echo $e->getMessage();
-} finally {
-    echo "<br>code the end!";
-}
+// try {
+//     echo calc(0);
+// } catch (Exception $e) {
+//     echo $e->getFile() . "<br>";
+//     echo $e->getMessage();
+// } finally {
+//     echo "<br>code the end!";
+// }
 
+echo (new UserController())->actionRegister();
 

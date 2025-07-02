@@ -14,13 +14,16 @@ class BaseView
         $this->setCssFile(ASSETS_CSS_PATH . $this->cssDefault);        
     }
 
+    public function renderLayout(string $html): string
+    {
+        $fileLayout = LAYOUT_PATH . $this->layout . ".php";
+        return $this->renderHtmlFile($fileLayout, ["content" => $html]);
+    }
+
     public function render(string $fileHtml, array $data = []): string
     {
         $fileHtml = VIEW_PATH . $fileHtml . ".php";
-        $html = $this->renderHtmlFile($fileHtml, $data);
-        $fileLayout = LAYOUT_PATH . $this->layout . ".php";
-
-        return $this->renderHtmlFile($fileLayout, ["content" => $html]);
+        return $this->renderHtmlFile($fileHtml, $data); 
     }
 
     private function renderHtmlFile(string $fileHtml, array $data = [])
