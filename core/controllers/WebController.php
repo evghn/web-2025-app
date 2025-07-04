@@ -15,7 +15,7 @@ class WebController
 
         $user = Auth::getUserByToken(); 
         if ($user) {
-            var_dump($token); die;
+            var_dump($user); die;
         }
     }
 
