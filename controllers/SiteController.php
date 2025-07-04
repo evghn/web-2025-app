@@ -13,8 +13,11 @@ class SiteController extends WebController
         return $this->render("site/index", $data);
     }
 
-    public function actionAbout()
+    public function actionAbout($id, $a)
     {
-        return $this->render("site/about");
+        return $this->render("site/about", [
+            'id' => $id,
+            'a' => $a
+        ]);
     }
 }

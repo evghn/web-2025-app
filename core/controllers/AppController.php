@@ -14,6 +14,7 @@ class AppController
     private ?string $action = null;
     private array $params = [];
     private string $controllerNamespace = "app\\controllers\\";
+    public static array $config = [];
 
 
     private function __construct() {}
@@ -27,10 +28,13 @@ class AppController
         return static::$self;
     }
 
-    public static function run()
+
+
+    public static function run(array $config)
     {
         try {
             $self = static::getInstance();
+            static::$config = $config;
             $self->route();
 
             $reflection = new \ReflectionClass($self->controller);
@@ -55,7 +59,7 @@ class AppController
                 // Вызываем метод с параметрами           
                 if (empty($self->params)) {
                     http_response_code(400);
-                    throw new Exception("Не переданы аргументы для метода {$self->controller}::{$self->action}");
+                    throw new Exception("Не переданы параметры для метода {$self->controller}::{$self->action}");
                 }
                 echo $method->invokeArgs($controller, $self->params);
             } else {

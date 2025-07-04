@@ -7,4 +7,7 @@ const ASSETS_PATH = "/assets/";
 const ASSETS_CSS_PATH = ASSETS_PATH . "css/";
 const ASSETS_JS_PATH = ASSETS_PATH . "js/";
 
-
+$db = require_once "db.php";
+$app = [
+    "db" => $db,    
+];
