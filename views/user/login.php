@@ -1,8 +1,11 @@
+<div>
+    Авторизация
+</div>
 <form action="" method="post">
     <div>
         <label>
             <div>Login</div>
-            <input type="text" name="login" value="<?= $account->login ?>" required>
+            <input type="text" name="login" value="<?= $model->login ?>" required>
         </label>
     </div>
     <div>
@@ -12,13 +15,7 @@
         </label>
     </div>
     <div>
-        <label>
-            <div>Name</div>
-            <input type="text" name="name" value="<?= $model->name ?>" required>
-        </label>
-    </div>    
-    <div>
-        <button type="submit">Регистрация</button>
+        <button type="submit">Вход</button>
     </div>
 </form>
 

@@ -10,12 +10,12 @@ class SiteController extends WebController
         $data = [
             "user" => "user - name",
         ];
-        return $this->render("site/index", $data);
+        return $this->render("index", $data);
     }
 
     public function actionAbout($id, $a)
     {
-        return $this->render("site/about", [
+        return $this->render("about", [
             'id' => $id,
             'a' => $a
         ]);

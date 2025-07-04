@@ -11,14 +11,18 @@
 
 <body>
     <header>
-        <a href="/site">Главная</a> | <a href="/user/register">Регистрация</a> | <a href="/site/about">О нас..</a>
+        <div>
+            <a href="/site">Главная</a> | <a href="/user/register">Регистрация</a> | <a href="/user/login">Вход</a> | <a href="/site/about">О нас..</a>
+
+        </div>
+         <div>
+            <?= date("d.m.Y") ?>
+        </div>
     </header>
     <main>
-        главный шаблон
 
-        <div>
-            <?= date("d.m.Y H:i:s") ?>
-        </div>
+
+       
         <div>
             <?= $content ?>
         </div>

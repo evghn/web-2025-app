@@ -1,6 +1,9 @@
 header {
     padding: 7px;
     background-color: rgb(200, 200, 255);
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
 }
 
 main {
