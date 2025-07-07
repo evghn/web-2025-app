@@ -26,10 +26,18 @@ class AppUser extends BaseDbModel
         return self::$_self;
     }
 
-    public function getUser()
+    public static function getAppUser()
+    {
+        $self = self::getInstance();
+        return $self->_user;
+    }
+
+    private function getUser()
     {
         return $this->_user;
     }
+
+
 
     private function createUser()
     {

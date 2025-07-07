@@ -1,3 +1,7 @@
+<?php
+
+use core\models\AppUser;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,14 +19,14 @@
             <a href="/site">Главная</a> | <a href="/user/register">Регистрация</a> | <a href="/user/login">Вход</a> | <a href="/site/about">О нас..</a>
 
         </div>
-         <div>
-            <?= date("d.m.Y") ?>
+        <div>
+            <?= AppUser::getAppUser()?->login ?>
         </div>
     </header>
     <main>
 
 
-       
+
         <div>
             <?= $content ?>
         </div>
