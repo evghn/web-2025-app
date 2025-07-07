@@ -1,5 +1,7 @@
 <?php
-    use core\models\AppUser;
+
+use app\models\AccountRole;
+use core\models\AppUser;
 
 ?>
 <nav class="navbar navbar-expand-lg">
@@ -13,6 +15,8 @@
         <?php foreach($menu as $item): ?>
             <li class="nav-item">
               <?php if ($item["auth"] === false && AppUser::isGuest()): ?> 
+                <a class="nav-link"  aria-current="page" href="<?= $item['link'] ?>"><?= $item["title"] ?></a>
+             <?php elseif ($item["auth"] === true && AccountRole::checkUserRole($item["role"])): ?>
                 <a class="nav-link"  aria-current="page" href="<?= $item['link'] ?>"><?= $item["title"] ?></a>
              <?php elseif ($item["auth"] === null): ?>
                 <a class="nav-link"  aria-current="page" href="<?= $item['link'] ?>"><?= $item["title"] ?></a>

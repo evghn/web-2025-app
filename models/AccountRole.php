@@ -19,4 +19,39 @@ class AccountRole extends BaseDbModel
     {
         return "account_role";
     }
+
+    public static function isAdmin(): ?bool
+    {
+        if ($user = AppUser::getUserByToken()) {
+            $userRoleId = (Db::getInstance(AppController::$config["db"]))
+            ->conn
+            ->createQueryBuilder()
+            ->select('id_role')
+            ->from(self::getTableName())
+            ->where('id_account = :id_account')
+            ->setParameter("id_account", $user->id)
+            ->fetchOne();
+            $isAdmin = $userRoleId == Role::getRoleId("admin");
+        }
+
+        return $isAdmin ?? null;
+    }
+
+
+    public static function checkUserRole($role): bool
+    {
+        if ($user = AppUser::getUserByToken()) {
+            $userRoleId = (Db::getInstance(AppController::$config["db"]))
+            ->conn
+            ->createQueryBuilder()
+            ->select('id_role')
+            ->from(self::getTableName())
+            ->where('id_account = :id_account')
+            ->setParameter("id_account", $user->id)
+            ->fetchOne();
+            $check = $userRoleId == Role::getRoleId($role);
+        }
+
+        return $check ?? false;
+    }
 }

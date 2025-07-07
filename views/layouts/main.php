@@ -22,6 +22,7 @@ use core\models\AppUser;
                 "menu" => [
                     ["title" => "Главная", "link" => "/", "auth" => null],
                     ["title" => "Регистрация", "link" => "/user/register", "auth" => false],
+                    ["title" => "Личный кабинет", "link" => "/account", "auth" => true, "role" => "user"],
                     ["title" => "О нас..", "link" => "/site/about", "auth" => null],
                 ]
             ]);
