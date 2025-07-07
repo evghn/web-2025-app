@@ -75,9 +75,9 @@ class AppUser extends BaseDbModel
         if (!empty($result[0])) {
             $self->getUser()->load($result[0]);
             self::$isGuest = false;
-            return $self->getUser();
-        } else {
+            return clone $self->getUser();
         }
+
         $self->setUser(null);
         return null;
     }
@@ -101,7 +101,7 @@ class AppUser extends BaseDbModel
         if ($user = Auth::getUserByToken()) {
             $self->createUser()->load($user);
             $self::$isGuest = false;
-            return $self->getUser();
+            return clone $self->getUser();
         } else {
             $self->setUser(null);
         }

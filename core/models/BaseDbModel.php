@@ -1,4 +1,5 @@
 <?php
+
 namespace core\models;
 
 use core\controllers\AppController;
@@ -7,8 +8,9 @@ class BaseDbModel extends BaseModel
 {
     public ?object $db;
 
-    public function __construct() {
-        $this->db = (Db::getInstance(AppController::$config["db"]))->conn;       
+    public function __construct()
+    {
+        $this->db = (Db::getInstance(AppController::$config["db"]))->conn;
     }
 
     public function save(): bool
@@ -16,7 +18,7 @@ class BaseDbModel extends BaseModel
         if ($this->isInsert()) {
             // insert            
             $this->db->insert(
-                $this::getTableName(), 
+                $this::getTableName(),
                 $this->getAttributes(true)
             );
 
@@ -49,6 +51,4 @@ class BaseDbModel extends BaseModel
     {
         $this->id = $id;
     }
-
-
 }

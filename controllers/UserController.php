@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Account;
 use app\models\User;
 use core\controllers\WebController;
+use core\models\AppUser;
 
 class UserController extends WebController
 {

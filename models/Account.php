@@ -31,8 +31,8 @@ class Account extends BaseDbModel
     public function loginUser(): bool
     {
         $account = AppUser::getUserByLogin($this->login);
-
         if ($account && AppUser::validatePassword($this->password)) {
+            $this->load($account->getAttributes());
             $this->token = bin2hex(random_bytes(32));
             if ($this->save()) {
                 Auth::setToken($this->token);
