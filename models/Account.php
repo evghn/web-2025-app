@@ -26,6 +26,11 @@ class Account extends BaseDbModel
     {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         $this->save();
+
+        $accountRole = new AccountRole();
+        $accountRole->id_account = $this->id;
+        $accountRole->id_role = Role::getRoleId("user");
+        $accountRole->save();
     }
 
     public function loginUser(): bool

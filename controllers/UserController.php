@@ -6,6 +6,7 @@ use app\models\Account;
 use app\models\User;
 use core\controllers\WebController;
 use core\models\AppUser;
+use core\models\Auth;
 
 class UserController extends WebController
 {
@@ -41,5 +42,19 @@ class UserController extends WebController
         return $this->render("login", [
             "model" => $account,
         ]);
+    }
+
+
+    public function actionLogout()
+    {        
+        if ($this->isPost()) {
+            if ($account = AppUser::getUserByToken()) {
+                $account->token = null;
+                $account->save();
+                Auth::resetToken();
+            }            
+        }
+
+        return $this->redirect("/");
     }
 }

@@ -29,4 +29,10 @@ class Auth
     {
         return $_COOKIE["identity"] ?? null;
     }
+
+
+    public static function resetToken()
+    {
+        setcookie("identity", "", 5 , "/");
+    }    
 }

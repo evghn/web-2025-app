@@ -2,6 +2,7 @@
 
 namespace core\controllers;
 
+use app\models\Role;
 use core\models\AppUser;
 use core\models\Auth;
 use core\models\BaseView;
@@ -17,7 +18,7 @@ class WebController
     {
         $this->view = new BaseView();
         $this->user = AppUser::getUserByToken();
-        $this->view->controller = $this;
+        $this->view->controller = $this;       
     }
 
     public function render(string $fileHtml, array $data = []): string

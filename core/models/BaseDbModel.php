@@ -13,6 +13,8 @@ class BaseDbModel extends BaseModel
         $this->db = (Db::getInstance(AppController::$config["db"]))->conn;
     }
 
+    
+
     public function save(): bool
     {
         if ($this->isInsert()) {
