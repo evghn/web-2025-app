@@ -5,13 +5,14 @@ namespace core\models;
 class BaseView
 {
     public string $layout = "main";
-    public string $cssDefault = "site.css";    
+    public string $cssDefault = "site.css";
     private array $cssFiles = [];
     private array $jsFiles = [];
+    public ?object $controller = null;
 
     public function __construct()
     {
-        $this->setCssFile(ASSETS_CSS_PATH . $this->cssDefault);        
+        $this->setCssFile(ASSETS_CSS_PATH . $this->cssDefault);
     }
 
     public function renderLayout(string $html): string
@@ -23,7 +24,7 @@ class BaseView
     public function render(string $fileHtml, array $data = []): string
     {
         $fileHtml = VIEW_PATH . $fileHtml . ".php";
-        return $this->renderHtmlFile($fileHtml, $data); 
+        return $this->renderHtmlFile($fileHtml, $data);
     }
 
     private function renderHtmlFile(string $fileHtml, array $data = [])
@@ -62,6 +63,4 @@ class BaseView
             $this->jsFiles
         ));
     }
-
-    
 }

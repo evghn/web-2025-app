@@ -1,7 +1,9 @@
 <?php
+
 namespace app\models;
 
 use core\controllers\AppController;
+use core\models\AppUser;
 use core\models\Auth;
 use core\models\BaseDbModel;
 use core\models\Db;
@@ -26,33 +28,17 @@ class Account extends BaseDbModel
         $this->save();
     }
 
-
-    public function getUserByLogin($login)
+    public function loginUser(): bool
     {
-        $sql = "SELECT * FROM {$this::getTableName()} WHERE login = :login";
-        $db = Db::getInstance(AppController::$config["db"]);
-        $result = $db->queryAssociative($sql, ["login" => $login]);
-        return $result[0] ?? null;
-    }
+        $account = AppUser::getUserByLogin($this->login);
 
-
-    public function login(): bool
-    {
-        $account = $this->getUserByLogin($this->login);
-
-        if ($account && $this->validatePassword($this->password, $account["password"])) {
-            $this->load($account);
+        if ($account && AppUser::validatePassword($this->password)) {
             $this->token = bin2hex(random_bytes(32));
             if ($this->save()) {
                 Auth::setToken($this->token);
                 return true;
             }
-        }  
+        }
         return false;
-    }
-
-    public function validatePassword($password, $hash)
-    {
-        return password_verify($password, $hash);
     }
 }

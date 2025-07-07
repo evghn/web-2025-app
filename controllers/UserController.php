@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\Account;
@@ -9,7 +10,7 @@ class UserController extends WebController
 {
     public function actionRegister()
     {
-        $user = new User(); 
+        $user = new User();
         $account = new Account();
         if ($this->isPost()) {
             $account->load($this->post());
@@ -27,17 +28,13 @@ class UserController extends WebController
 
 
     public function actionLogin()
-    {        
+    {
         $account = new Account();
         if ($this->isPost()) {
             $account->load($this->post());
-            // var_dump($account->getAttributes()); die;
-            if ($account->login()) {
-                // var_dump(__LINE__); die;
-
-                $this->redirect("/");
+            if ($account->loginUser()) {
+                return $this->redirect("/");
             }
-            // var_dump(__LINE__); die;
         }
 
         return $this->render("login", [

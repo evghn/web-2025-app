@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use core\controllers\ErrorController;
@@ -29,11 +30,10 @@ class User extends BaseDbModel
             $this->bddate = date("Y-m-d");
             $this->bio = "bio text";
             $this->save();
-            return true;            
-        } catch(Exception $e) {
+            return true;
+        } catch (Exception $e) {
             (new ErrorController)->error($e->getMessage());
             die;
         }
     }
-
 }

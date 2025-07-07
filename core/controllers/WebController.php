@@ -1,28 +1,29 @@
 <?php
+
 namespace core\controllers;
 
+use core\models\AppUser;
 use core\models\Auth;
 use core\models\BaseView;
+
 
 class WebController
 {
     public ?object $view;
+    private ?object $user = null;
 
 
     public function __construct()
     {
         $this->view = new BaseView();
-
-        $user = Auth::getUserByToken(); 
-        if ($user) {
-            var_dump($user); die;
-        }
+        $this->user = AppUser::getUserByToken();
+        $this->view->controller = $this;
     }
 
     public function render(string $fileHtml, array $data = []): string
     {
         $fileHtml = $this->getId() . "/" . $fileHtml;
-        return $this->view->renderLayout(        
+        return $this->view->renderLayout(
             $this->view->render($fileHtml, $data)
         );
     }

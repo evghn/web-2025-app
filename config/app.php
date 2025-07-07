@@ -1,7 +1,5 @@
 <?php
 
-use app\models\Account;
-
 const FILE_CONFIG_DB = __DIR__ . "/../config/db.php";
 const VIEW_PATH = __DIR__ . "/../views/";
 const LAYOUT_PATH = VIEW_PATH . "layouts/";
@@ -13,6 +11,6 @@ $db = require_once "db.php";
 $app = [
     "db" => $db,
     "user" => [
-        "class" => "app\\models\\Account",
+        "class" => "app\models\Account",
     ]
 ];
