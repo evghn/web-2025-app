@@ -1,3 +1,8 @@
+<?php
+
+// var_dump($topics); die;
+?>
+
 <h4>Создание поста</h4>
 <form method="post">
     <div class="">
@@ -7,11 +12,11 @@
     </div>
     <div class="">
         <label class="form-label w-100">Категория статьи
-        <select class="form-select" aria-label="Категория статьи" required>
+        <select class="form-select" aria-label="Категория статьи" name="id_topic" required>
           <option selected>Выберите категорию статьи</option>
-          <option value="1">Один</option>
-          <option value="2">Два</option>
-          <option value="3">Три</option>
+          <?php foreach($topics as $key => $topic): ?>
+            <option value="<?= $key ?>"><?= $topic['name'] ?></option>          
+          <?php endforeach ?>
         </select>
         </label>
     </div>

@@ -34,6 +34,8 @@ class BaseDbModel extends BaseModel
             );
         }
 
+        $this->refreshData();
+
         return true;
     }
 
@@ -52,5 +54,19 @@ class BaseDbModel extends BaseModel
     private function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function refreshData()
+    {
+        $res = $this->db->createQueryBuilder()
+            ->select('*')
+            ->from($this::getTableName())
+            ->where('id = :id')
+            ->setParameter("id", $this->getId())
+            ->fetchAllAssociative();
+
+        if ($res) {
+            $this->load($res[0]); 
+        }      
     }
 }
