@@ -1,12 +1,15 @@
 <?php
-
-use core\models\AppUser;
 ?>
-site controller index page
+
 
 <div>
-    <?= $user ?>
-    <?php var_dump(AppUser::isGuest()) ?>
+    <div class="">
+    <?php foreach($userArticles as $article): ?>
+        <?= $this->render("site/article-item", [
+            "article" => $article
+        ]) ?>
+    <?php endforeach ?>
+</div>
 </div>
 <?php
 $this->setCssFile(ASSETS_CSS_PATH . "site-index.css");

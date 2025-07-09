@@ -1,17 +1,20 @@
 <?php
 namespace app\controllers;
 
+use app\models\Article;
 use core\controllers\WebController;
 
 class SiteController extends WebController
 {
     public function actionIndex()
     {
-        $data = [
-            "user" => "user - name",
-        ];
-        return $this->render("index", $data);
+        $userArticles = Article::getArticles();
+        
+        return $this->render("index", [
+            "userArticles" => $userArticles
+        ]);
     }
+
 
     public function actionAbout($id, $a)
     {

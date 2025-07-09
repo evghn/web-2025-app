@@ -38,4 +38,23 @@ class AccountController extends WebController
         ]);
     }
 
+
+    public function actionPostView($id)
+    {        
+        return $this->render("view", [
+            'article' => Article::getArticle($id)
+        ]);
+    }
+
+
+    public function actionPostApply($id)
+    {
+        Article::articleApply($id);        
+        return $this->redirect("/" . $this->getId());
+    }
+
+    
+
+    
+
 }
