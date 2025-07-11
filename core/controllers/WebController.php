@@ -68,4 +68,11 @@ class WebController
         header("Location: " . $url);
         exit;
     }
+
+
+    public function asJson(mixed $val): string
+    {
+        header("Content-Type: application/json");
+        return json_encode($val);
+    }
 }

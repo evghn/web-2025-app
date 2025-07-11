@@ -9,7 +9,7 @@ class SiteController extends WebController
     public function actionIndex()
     {
         $userArticles = Article::getArticles();
-        
+        // var_dump($userArticles); die;
         return $this->render("index", [
             "userArticles" => $userArticles
         ]);

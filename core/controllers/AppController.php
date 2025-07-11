@@ -29,7 +29,6 @@ class AppController
     }
 
 
-
     public static function run(array $config)
     {
         try {
@@ -43,7 +42,7 @@ class AppController
             // Проверяем существование метода
             if (!$reflection->hasMethod($self->action)) {
                 http_response_code(404);
-                throw new \Exception("Not found in controller {$self->controller}::{$self->action}");
+                throw new \Exception("Отсутствует метод в контроллере {$self->controller}::{$self->action}");
             }
 
             // Получаем рефлексию метода

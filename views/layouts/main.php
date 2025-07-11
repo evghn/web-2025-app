@@ -16,14 +16,16 @@ use core\models\AppUser;
 </head>
 
 <body>
-    <header>
+    <header class="fs-5">
         <div>
             <?= $this->render("layouts/menu", [
                 "menu" => [
                     ["title" => "Главная", "link" => "/", "auth" => null],
                     ["title" => "Регистрация", "link" => "/user/register", "auth" => false],
                     ["title" => "Личный кабинет", "link" => "/account", "auth" => true, "role" => "user"],
-                    ["title" => "О нас..", "link" => "/site/about", "auth" => null],
+                    ["title" => "Панель управления", "link" => "/admin", "auth" => true, "role" => "admin"],
+
+                    ["title" => "О нас..", "link" => "/site/about/id/1/a/2", "auth" => null],
                 ]
             ]);
             ?>
@@ -33,7 +35,7 @@ use core\models\AppUser;
                 <?php if ($user = AppUser::getAppUser()): ?>
                     <form method="post" action="/user/logout"  class="row g-3">
                         <div class="col-auto">
-                            <button type="submit" class="btn mb-3">Выход (<?= $user->login ?>)</button>
+                            <button type="submit" class="btn fs-5">Выход (<?= $user->login ?>)</button>
                         </div>
                     </form>
                 <?php else: ?>
@@ -43,7 +45,14 @@ use core\models\AppUser;
         </nav>
     </header>
     <main>
-
+        <div class="d-flex bg-info-subtle justify-content-end p-2 gap-3 mb-3">
+            <div class="d-flex gap-1">
+                Статей в системе: <div class="count-posts"></div>        
+            </div>
+            <div class="d-flex gap-1">
+                Пользователей в системе: <div class="count-users">2</div>        
+            </div>
+        </div>
 
 
         <div class="container">
@@ -54,6 +63,7 @@ use core\models\AppUser;
         подвал сайта
     </footer>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/info.js"></script>
     <?= $this->getLinkJsFiles() ?>
 </body>
 

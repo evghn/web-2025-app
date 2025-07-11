@@ -15,6 +15,7 @@ class Article extends BaseDbModel
     public ?string $content = null;
     public ?string $created_at = null;
     public ?int $id_status = null;
+    public ?int $id_account = null;
 
     public static function getTableName()
     {
@@ -25,6 +26,7 @@ class Article extends BaseDbModel
     public function create(int $id_topic): bool
     {
         $this->id_status = Status::getStatusId("Новая");
+        $this->id_account = (AppUser::getAppUser())->id;
         if ($this->save()) {
             $topicArtilce = new TopicArticle();
             $topicArtilce->id_artical = $this->id;
@@ -37,18 +39,12 @@ class Article extends BaseDbModel
     }
 
 
-    public static function getArticles(bool $isArray = true): array|object
+   
+    private static function prepareArticles(): object
     {
         $result = (Db::getInstance(AppController::$config["db"]))
             ->conn
-            ->createQueryBuilder()
-            /** public 
-             * ?int $id = null;
-             *   public ?string $name = null;
-             *     public ?string $content = null;
-             *     public ?string $created_at = null;
-             *     public ?int $id_status = null; 
-             * */
+            ->createQueryBuilder()            
             ->select(
                 'a.id',
                 'a.name',
@@ -63,11 +59,37 @@ class Article extends BaseDbModel
             ->leftJoin('t_a', "topic", "t", "t_a.id_topic = t.id")
             ->leftJoin('a', "status", "s", "a.id_status = s.id")
             ->leftJoin('a', 'account', 'u', "u.id = a.id_account")
+            ;       
+
+        return $result;        
+    }
+    
+    public static function getArticles(): array
+    {
+        $result = self::prepareArticles()            
             ->where("a.id_status = :status")
             ->setParameter("status", Status::getStatusId("Готова"))
             ->fetchAllAssociative()
             ;
-        
+        return $result;        
+    }
+    
+    public static function getCountArticles(): int
+    {
+        $sub = self::prepareArticles()            
+            ->where("a.id_status = :status")
+            ->setParameter("status", Status::getStatusId("Готова"))        
+            ;
+        $result = (Db::getInstance(AppController::$config["db"]))
+            ->conn
+            ->createQueryBuilder()            
+            ->select("COUNT(sub.id)")
+            ->from("(" . $sub->getSQL() . ")", "sub")
+            ->setParameters($sub->getParameters())
+            ->executeQuery()
+            ->fetchOne()
+            // ->getSQL()
+            ;
 
         return $result;        
     }
@@ -75,37 +97,23 @@ class Article extends BaseDbModel
 
     public static function getArticle(int $id): array
     {
-        $result = (Db::getInstance(AppController::$config["db"]))
-            ->conn
-            ->createQueryBuilder()
-            /** public 
-             * ?int $id = null;
-             *   public ?string $name = null;
-             *     public ?string $content = null;
-             *     public ?string $created_at = null;
-             *     public ?int $id_status = null; 
-             * */
-            ->select(
-                'a.id',
-                'a.name',
-                'a.content',
-                'a.created_at',
-                't.name as topic_name',
-                's.title as status_title',
-                'u.login',
-            )
-            ->from(self::getTableName(), 'a')
-            ->leftJoin('a', "topic_artical", "t_a", "t_a.id_artical = a.id")
-            ->leftJoin('t_a', "topic", "t", "t_a.id_topic = t.id")
-            ->leftJoin('a', "status", "s", "a.id_status = s.id")
-            ->leftJoin('a', 'account', 'u', "u.id = a.id_account")            
-             ->where('a.id = :id_article')
+        $result = self::prepareArticles()            
+            ->where('a.id = :id_article')
             ->setParameter("id_article", $id)
             ->fetchAllAssociative()
-            ;
-        
+            ;       
 
         return empty($result) ? [] : $result[0];        
+    }
+    
+
+    public static function getAdminArticles(): array
+    {
+        $result = self::prepareArticles()                        
+            ->fetchAllAssociative()
+            ;       
+
+        return empty($result) ? [] : $result;        
     }
     
 
@@ -115,30 +123,7 @@ class Article extends BaseDbModel
 
         if ($user = AppUser::getUserByToken()) {
             
-            $result = (Db::getInstance(AppController::$config["db"]))
-            ->conn
-            ->createQueryBuilder()
-            /** public 
-             * ?int $id = null;
-             *   public ?string $name = null;
-             *     public ?string $content = null;
-             *     public ?string $created_at = null;
-             *     public ?int $id_status = null; 
-             * */
-            ->select(
-                'a.id',
-                'a.name',
-                'a.content',
-                'a.created_at',
-                't.name as topic_name',
-                's.title as status_title',
-                'u.login',
-            )
-            ->from(self::getTableName(), 'a')
-            ->leftJoin('a', "topic_artical", "t_a", "t_a.id_artical = a.id")
-            ->leftJoin('t_a', "topic", "t", "t_a.id_topic = t.id")
-            ->leftJoin('a', "status", "s", "a.id_status = s.id")
-            ->leftJoin('a', 'account', 'u', "u.id = a.id_account")
+            $result = self::prepareArticles()
             ->where('id_account = :id_account')
             ->setParameter("id_account", $user->id)
             ->fetchAllAssociative()

@@ -2,30 +2,27 @@
 
 namespace app\controllers;
 
-use app\models\Account;
 use app\models\AccountRole;
 use app\models\Article;
 use app\models\Topic;
-use app\models\User;
-use core\controllers\WebController;
-use core\models\AppUser;
-use core\models\Auth;
 
-class AccountController extends WebController
+use core\controllers\WebController;
+
+
+class AdminController extends WebController
 {
 
     private function checkAccess()
     {
-        if (!AccountRole::isUser()) {
+        if (!AccountRole::isAdmin()) {
             return $this->redirect("/");
         }
     }
 
-    
     public function actionIndex()
     {
         $this->checkAccess();
-        $userArticles = Article::getUserArticles();
+        $userArticles = Article::getAdminArticles();
         return $this->render("index", [
             "userArticles" => $userArticles
         ]);
@@ -66,4 +63,5 @@ class AccountController extends WebController
         Article::articleApply($id);        
         return $this->redirect("/" . $this->getId());
     }
+
 }

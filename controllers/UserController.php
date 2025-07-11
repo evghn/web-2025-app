@@ -10,8 +10,17 @@ use core\models\Auth;
 
 class UserController extends WebController
 {
+    private function checkAccess()
+    {
+        if (!AppUser::isGuest()) {
+            return $this->redirect("/");
+        }
+    }
+
+    
     public function actionRegister()
     {
+        $this->checkAccess();
         $user = new User();
         $account = new Account();
         if ($this->isPost()) {
@@ -31,6 +40,7 @@ class UserController extends WebController
 
     public function actionLogin()
     {
+        $this->checkAccess();
         $account = new Account();
         if ($this->isPost()) {
             $account->load($this->post());
@@ -47,6 +57,10 @@ class UserController extends WebController
 
     public function actionLogout()
     {        
+        if (AppUser::isGuest()) {
+            return $this->redirect("/");
+        }
+        
         if ($this->isPost()) {
             if ($account = AppUser::getUserByToken()) {
                 $account->token = null;

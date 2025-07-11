@@ -46,4 +46,17 @@ class Account extends BaseDbModel
         }
         return false;
     }
+
+
+    public static function getCountUsers(): int
+    {
+        return (Db::getInstance(AppController::$config["db"]))
+            ->conn
+            ->createQueryBuilder()
+            ->select("COUNT(id)")
+            ->from(self::getTableName())
+            ->executeQuery()
+            ->fetchOne()
+            ;
+    }
 }

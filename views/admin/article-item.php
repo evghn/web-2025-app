@@ -14,7 +14,7 @@
     </div>
     <div class="d-flex gap-3 justify-content-end">
         <a href="account/postApply/id/<?= $article["id"] ?>" class="btn btn-outline-success"><i class="fa-regular fa-thumbs-up fa-lg"></i></a>
-        <a href="account/postView/id/<?= $article["id"] ?>" class="btn btn-outline-primary"><i class="fa-regular fa-eye fa-lg"></i></a>
+        <a href="admin/postView/id/<?= $article["id"] ?>" class="btn btn-outline-primary"><i class="fa-regular fa-eye fa-lg"></i></a>
                 
     </div>
   </div>

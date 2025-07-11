@@ -27,6 +27,6 @@ footer {
 }
 
 div {
-    padding: 7px;
+    /* padding: 0px !important; */
     /* border: 1px solid navy; */
 }
