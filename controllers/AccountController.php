@@ -27,12 +27,15 @@ class AccountController extends WebController
     public function actionIndex()
     {
         $this->checkAccess();
-        $userArticles = (new AccountSearch())->query($this->getQueryParams());
+        $model = new AccountSearch();
+
+        $model->query($this->getQueryParams());
         // var_dump($data); die;
         // $userArticles = Article::getUserArticles();
         return $this->render("index", [
-            "userArticles" => $userArticles,
-            "statuses" => Status::getStatuses()
+            "userArticles" => $model->getData(),
+            "statuses" => Status::getStatuses(),
+            "model" => $model,
         ]);
     }
 

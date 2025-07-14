@@ -34,5 +34,3 @@ setTimeout(function getInfo() {
     getCountUsers();
     setTimeout(getInfo, 5000);
 }, 5000)
-
-getCountInfo()

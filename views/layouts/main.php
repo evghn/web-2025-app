@@ -1,5 +1,7 @@
 <?php
 
+use app\models\Account;
+use app\models\Article;
 use core\models\AppUser;
 ?>
 <!DOCTYPE html>
@@ -47,10 +49,10 @@ use core\models\AppUser;
     <main>
         <div class="d-flex bg-info-subtle justify-content-end p-2 gap-3 mb-3">
             <div class="d-flex gap-1">
-                Статей в системе: <div class="count-posts"></div>        
+                Статей в системе: <div class="count-posts"><?= Article::getCountArticles() ?></div>        
             </div>
             <div class="d-flex gap-1">
-                Пользователей в системе: <div class="count-users">2</div>        
+                Пользователей в системе: <div class="count-users"><?= Account::getCountUsers() ?></div>        
             </div>
         </div>
 
