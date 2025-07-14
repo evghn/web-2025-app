@@ -75,4 +75,10 @@ class WebController
         header("Content-Type: application/json");
         return json_encode($val);
     }
+
+
+    public function getQueryParams(): array
+    {
+        return AppController::getParams();
+    }
 }

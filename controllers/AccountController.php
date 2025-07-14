@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\models\Account;
 use app\models\AccountRole;
+use app\models\AccountSearch;
 use app\models\Article;
+use app\models\Status;
 use app\models\Topic;
 use app\models\User;
 use core\controllers\WebController;
@@ -25,9 +27,12 @@ class AccountController extends WebController
     public function actionIndex()
     {
         $this->checkAccess();
-        $userArticles = Article::getUserArticles();
+        $userArticles = (new AccountSearch())->query($this->getQueryParams());
+        // var_dump($data); die;
+        // $userArticles = Article::getUserArticles();
         return $this->render("index", [
-            "userArticles" => $userArticles
+            "userArticles" => $userArticles,
+            "statuses" => Status::getStatuses()
         ]);
     }
 

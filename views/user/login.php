@@ -3,19 +3,19 @@
 </div>
 <form action="" method="post">
     <div>
-        <label>
+        <label  class="form-label">
             <div>Login</div>
-            <input type="text" name="login" value="<?= $model->login ?>" required>
+            <input type="text" class="form-control" name="login" value="<?= $model->login ?>" required>
         </label>
     </div>
     <div>
-        <label>
+        <label  class="form-label">
             <div>Password</div>
-            <input type="password" name="password" value="" required>
+            <input type="password" class="form-control"  name="password" value="" required>
         </label>
     </div>
     <div>
-        <button type="submit">Вход</button>
+        <button class="btn btn-outline-primary" type="submit">Вход</button>
     </div>
 </form>
 

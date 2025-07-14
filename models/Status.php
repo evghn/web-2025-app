@@ -30,4 +30,23 @@ class Status extends BaseDbModel
             ->fetchOne();
     }
 
+    
+    public static function getStatuses()
+    {
+        
+        $result = (Db::getInstance(AppController::$config["db"]))
+            ->conn
+            ->createQueryBuilder()
+            ->select('id', 'title')
+            ->from(self::getTableName())    
+            ->fetchAllAssociativeIndexed()
+            ;
+        
+            
+        // var_dump($result); die;
+
+        return $result;
+    }
+
+
 }

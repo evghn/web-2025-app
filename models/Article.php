@@ -40,7 +40,7 @@ class Article extends BaseDbModel
 
 
    
-    private static function prepareArticles(): object
+    protected static function prepareArticles(): object
     {
         $result = (Db::getInstance(AppController::$config["db"]))
             ->conn
@@ -55,10 +55,10 @@ class Article extends BaseDbModel
                 'u.login',
             )
             ->from(self::getTableName(), 'a')
-            ->leftJoin('a', "topic_artical", "t_a", "t_a.id_artical = a.id")
-            ->leftJoin('t_a', "topic", "t", "t_a.id_topic = t.id")
-            ->leftJoin('a', "status", "s", "a.id_status = s.id")
-            ->leftJoin('a', 'account', 'u', "u.id = a.id_account")
+            ->leftJoin('a', TopicArticle::getTableName(), "t_a", "t_a.id_artical = a.id")
+            ->leftJoin('t_a', Topic::getTableName(), "t", "t_a.id_topic = t.id")
+            ->leftJoin('a', Status::getTableName(), "s", "a.id_status = s.id")
+            ->leftJoin('a', Account::getTableName(), 'u', "u.id = a.id_account")
             ;       
 
         return $result;        
